@@ -74,6 +74,7 @@ X[...,0] # toutes les lignes et colonnes de la bande 0
 ```python
 from matplotlib import pyplot as plt
 plt.imshow((X[...,0]+1)/(np.amax(X[...,0]+1)) # comme le NDVI va de -1 a 1, on standardise entre 0 et 1
+```
 
 #### Exercice
 
