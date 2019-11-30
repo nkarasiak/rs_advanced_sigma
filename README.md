@@ -44,6 +44,8 @@ Les codes doivent être bien documentés, en suivant la [docstring numpy](https:
 | 5     | Mer. 08/01/2020 | 8h/10h	| Découverte de Museo ToolBox                           |
 | 6     | Ven. 08/01/2020 | 13h30/17h30 | PARTIEL                                               |
 
+---
+
 # Gestion des tableaux
 
 Pour gérer un tableau ou une matrice (c'est-à-dire une image sans géoréférencement)
@@ -96,6 +98,8 @@ Sachant que l'infra-rouge est la dernière bande (la numéro 4, donc en partant 
 
 Pour ceux qui ont fini, essayez d'optimiser le temps de traitement pour calculer le NDVI.
 
+---
+
 # D'une image au tableau
 
 ![Synthèse mensuelle de Sentinel-2 niveau 3A (Pôle Théia) sur la forêt de Bouconne en août 2018](_images/s2_bouconne.jpg)
@@ -122,18 +126,77 @@ data_src.ReadAsArray() # renvoie toute l'image en tableau
 - Calculer le NDVI pour toute l'image.
 - Optimiser le calcul du NDVI pour ne plus le faire cellule par cellule (éviter la boucle for).
 
+---
 
 # Écriture d'une image géoréférencée
+
+Maintenant que l'on sait ouvrir, lire, et faire un traitement sur une image, il ne reste plus qu'à sauvegarder le résultat dans une nouvelle image.
+
+Pour cela quelques lignes pour définir nos besoins sont nécessaires :
 
 ```python
 driver = gdal.GetDriverByName("GTiff") # on choisi de créer un GeoTIFF
 out_data = driver.Create('/tmp/mon_ndvi.tif', data_src.RasterYSize, data_src.RasterXSize, 1, gdal.GDT_Float32) # 1 pour une bande
 out_data.SetGeoTransform(data_src.GetGeoTransform()) # même géotransformation que l'image d'origine
 out_data.SetProjection(data_src.GetProjection()) # même projection que l'image d'origine
-out_data.GetRasterBand(1).WriteArray(ndvi) # j'écris mon NDVI dans la bande 1
-out_data.FlushCache()
 ```
 
-#
+La variable out_data est désormais une instance de votre fichier de sortie. Vous pouvez désormais intéragir avec cette instance et sauvegarder le résultat du ndvi dans votre nouvelle image :
 
-#
+```python
+out_data.GetRasterBand(1).WriteArray(ndvi) # j'écris mon NDVI dans la bande 1
+out_data.FlushCache() # écrit sur le disque
+out_data = None # précaution, permet de bien spécifier que le fichier est fermé
+```
+
+## Exercice
+
+Créer pour chacun des lignes suivantes une fonction qui vous permet :
+- de lire une image (qui retourne l'objet gdal)
+- de calculer le NDVI (à partir de l'objet gdal en demandant à l'utilisateur la position de la bande rouge et infrarouge)
+- d'écrire une image (on donne un tableau et le nom de fichier que l'on veut écrire)
+
+Une fois terminée, vous pourrez à partir de 3 lignes :
+- ouvrir une image
+- calculer le ndvi
+- écrire le ndvi
+
+---
+
+# Filtre spatial (tenant compte des voisins)
+
+Comment identifier les forêts des cartes de l'État-Major ?
+Besoin de supprimer les rayures des pentes.
+![Fabas État-Major](_images/fabas.png)
+
+Pour cela plusieurs filtres doivent être utilisés :
+- closing filter
+- median (récupérer les contours)
+
+- Quelle est la valeur des pixels blancs ?
+- Quelle est la valeur des pixels noirs ?
+- Que fait et à quoi sert le closing filter ?
+
+![Illustration du closing filter](_images/closing.png)
+
+## Exercice
+
+Créer une fonction qui parcours l'image selon un nombre de voisins défini (1 = les premiers voisins (8 donc), 2 = les voisins jusqu'à 2 pixels de distance (24)...)
+Puis en tenant compte des voisins, appliquez :
+- un filtre max
+- un filtre min
+- un filtre median
+
+--- 
+
+# Apprentissage automatique
+
+Scikit-Learn
+
+```python
+import sklearn
+```
+
+---
+
+# MuseoToolBox
