@@ -17,15 +17,21 @@ Les bibliothèques python utilisées dans ce cours sont :
 - scikit-learn (apprentissage automatique)
 - museotoolbox (facilite la lecture/écriture des rasters)
 
+Si une des bibliothèques venait à manquer, vous pouvez l'installer en tapant la commande suivante dans le terminal :
+```bash
+python3 -m pip install scikit-learn --user
+```
 ## Le respect des conventions
 
-Pep8
+Toutes les classes, fonctions et variables que nous allons créé pendant ce cours doivent suivre le convention PEP8.
 
 | Type | Écriture |
 |------|----------|
 | Class | `MaSuperClasse` |
 | Function | `ma_super_fonction` |
 | Variable | `ma_variable` |
+
+Les codes doivent être bien documentés, en suivant la [docstring numpy](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html).
 
 ## Planning
 
