@@ -41,5 +41,7 @@ plot_image(block_no_mask[300:600,300:600,:4],save_as='/mnt/DATA/Cours/Sigma/TLD/
 
 np.save('/mnt/DATA/Cours/Sigma/TLD/git_rs_advanced_sigma/data/sentinel2_3a_20180815.npy',block_no_mask[500:700,500:700,:4])
 
-
-
+img = "/mnt/DATA/Cours/Sigma/TLD/git_rs_advanced_sigma/data/sentinel2_3a_20180815.npy"
+X = np.load(img)
+from matplotlib import pyplot as plt
+plt.imshow((X[...,0])/(np.amax(X[...,0])),cmap='gray') 

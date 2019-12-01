@@ -4,7 +4,7 @@ Cours de télédétection avancée pour Master Sigma.
 
 ## Objectif
 
-Ce cours a pour but de vous rendre à la fois le plus autonome possible et le plus .
+Ce cours a pour but de vous rendre le plus autonome possible en télédétection à partir de python. À la fin de ce cours vous serez capable d'interagir avec des images directement depuis python et ce de manière optimisée et efficiente (lecture par bloc par exemple). Vous allez aussi découvrir comment manier les algorithmes d'apprentissage automatique afin d'apprendre des modèles pour cartographier par l'exemple l'occupation du sol.
 
 ## Les bibliothèques python utilisées
 
@@ -32,6 +32,8 @@ Toutes les classes, fonctions et variables que nous allons créé pendant ce cou
 | Variable | `ma_variable` |
 
 Les codes doivent être bien documentés, en suivant la [docstring numpy](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html).
+
+/!\ [Attention, un canard en plastique pourra venir relire et valider votre code](https://fr.wikipedia.org/wiki/M%C3%A9thode_du_canard_en_plastique).
 
 ## Planning
 
@@ -67,11 +69,15 @@ X.size # le nombre de cellules
 
 #### Exercice
 
-- Comment pouvez-vous obtenir que le nombre de lignes ?
-- Comment pouvez-vous obtenir que le nombre de bandes ?
+- Comment pouvez-vous obtenir uniquement le nombre de lignes ?
+- Comment pouvez-vous obtenir uniquement le nombre de bandes ?
 - De combien de pixels est composée chaque bande ?
 
 ### Parcourir et afficher un tableau
+
+Les `:` permettent de sélectionner toutes les cellules de la dimension en question.
+
+Les `...` permettent de sélectionner toutes les dimensions suivantes ou précédentes.
 
 ```python
 X[0,:,0] # première ligne, toutes les colonnes, première bande
@@ -81,22 +87,20 @@ X[...,0] # toutes les lignes et colonnes de la bande 0
 
 ```python
 from matplotlib import pyplot as plt
-plt.imshow((X[...,0]+1)/(np.amax(X[...,0]+1)) # comme le NDVI va de -1 a 1, on standardise entre 0 et 1
+plt.imshow((X[...,0])/(np.amax(X[...,0])),cmap='gray') # Si vous voulez afficher une bande
 ```
 
 #### Exercice
 
 - Accéder au pixel/ à la cellule de la première ligne et première colonne
-
 - Accéder au pixel / à la cellule de la dernière ligne et dernière colonne
-
 - Parcourir la matrice cellule par cellule (boucle for)
 - Calculer le ndvi :
 ![\Large x=\frac{infrarouge-rouge}{infrarouge+rouge}](https://latex.codecogs.com/svg.latex?x=\frac{infrarouge-rouge}{infrarouge+rouge})
 
-Sachant que l'infra-rouge est la dernière bande (la numéro 4, donc en partant de 0 la numéro 3, et le rouge est la bande numéro 3)
+Sachant que l'infra-rouge est la dernière bande (la numéro 4, donc en partant de 0 la numéro 3, et le rouge est la bande numéro 3).
 
-Pour ceux qui ont fini, essayez d'optimiser le temps de traitement pour calculer le NDVI.
+Pour ceux qui ont terminé, vous pouvez chronométrer et essayer d'optimiser le temps de traitement pour calculer le NDVI.
 
 ---
 
@@ -151,10 +155,10 @@ out_data = None # précaution, permet de bien spécifier que le fichier est ferm
 
 ## Exercice
 
-Créer pour chacun des lignes suivantes une fonction qui vous permet :
-- de lire une image (qui retourne l'objet gdal)
-- de calculer le NDVI (à partir de l'objet gdal en demandant à l'utilisateur la position de la bande rouge et infrarouge)
-- d'écrire une image (on donne un tableau et le nom de fichier que l'on veut écrire)
+Créer pour chacune consignes suivantes une fonction qui vous permet :
+- de lire une image (fonction retournant l'objet gdal)
+- de calculer le NDVI (à partir de l'objet gdal, on demande à l'utilisateur la position de la bande rouge et infrarouge)
+- d'écrire une image (on donne un objet gdal, un tableau et le nom de fichier que l'on veut écrire)
 
 Une fois terminée, vous pourrez à partir de 3 lignes :
 - ouvrir une image
@@ -166,12 +170,14 @@ Une fois terminée, vous pourrez à partir de 3 lignes :
 # Filtre spatial (tenant compte des voisins)
 
 Comment identifier les forêts des cartes de l'État-Major ?
-Besoin de supprimer les rayures des pentes.
+Des traits plus ou moins fins et plus ou moins serrés représentent les pentes dans les cartes. Nous avons donc besoin de supprimer ces rayures afind d'avoir une couleur verte homogène pour identifier la forêt.
 ![Fabas État-Major](_images/fabas.png)
 
 Pour cela plusieurs filtres doivent être utilisés :
-- closing filter
-- median (récupérer les contours)
+- closing filter (filtre de fermeture)
+- médian (récupérer les contours)
+
+## Exercice
 
 - Quelle est la valeur des pixels blancs ?
 - Quelle est la valeur des pixels noirs ?
@@ -179,15 +185,14 @@ Pour cela plusieurs filtres doivent être utilisés :
 
 ![Illustration du closing filter](_images/closing.png)
 
-## Exercice
 
 Créer une fonction qui parcours l'image selon un nombre de voisins défini (1 = les premiers voisins (8 donc), 2 = les voisins jusqu'à 2 pixels de distance (24)...)
 Puis en tenant compte des voisins, appliquez :
 - un filtre max
 - un filtre min
-- un filtre median
+- un filtre median dont on peut définir le nombre d'itération
 
---- 
+---
 
 # Apprentissage automatique
 
