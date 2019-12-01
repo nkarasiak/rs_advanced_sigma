@@ -25,7 +25,7 @@ python3 -m pip install scikit-learn --user
 ```
 ## Le respect des conventions
 
-Toutes les classes, fonctions et variables que nous allons créé pendant ce cours doivent suivre le convention PEP8.
+Toutes les classes, fonctions et variables que nous allons créer pendant ce cours doivent suivre le [convention PEP8](https://realpython.com/python-pep8/).
 
 | Type | Écriture |
 |------|----------|
