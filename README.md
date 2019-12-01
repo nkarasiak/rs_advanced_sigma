@@ -6,6 +6,8 @@ Cours de télédétection avancée pour Master Sigma.
 
 Ce cours a pour but de vous rendre le plus autonome possible en télédétection à partir de python. À la fin de ce cours vous serez capable d'interagir avec des images directement depuis python et ce de manière optimisée et efficiente (lecture par bloc par exemple). Vous allez aussi découvrir comment manier les algorithmes d'apprentissage automatique afin d'apprendre des modèles pour cartographier par l'exemple l'occupation du sol.
 
+Les [données utilisées pour ce cours sont disponibles ici en ligne](https://github.com/nkarasiak/rs_advanced_sigma/archive/data.zip).
+
 ## Les bibliothèques python utilisées
 
 Les bibliothèques python utilisées dans ce cours sont :
