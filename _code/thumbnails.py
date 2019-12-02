@@ -9,7 +9,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import museotoolbox as mtb
 
-in_image = "/mnt/DATA/Cours/Sigma/TLD/git_rs_advanced_sigma/data/sentinel2_3a_20180815.tif"
+in_image = "/mnt/DATA/Cours/Sigma/TLD/git_rs_advanced_sigma/sentinel2_3a_20180815.tif"
 RM = mtb.geo_tools.RasterMath(in_image,return_3d=True,block_size=[1200,1200])
 
 for block in RM.read_block_per_block():
@@ -45,3 +45,8 @@ img = "/mnt/DATA/Cours/Sigma/TLD/git_rs_advanced_sigma/data/sentinel2_3a_2018081
 X = np.load(img)
 from matplotlib import pyplot as plt
 plt.imshow((X[...,0])/(np.amax(X[...,0])),cmap='gray') 
+
+RM = mtb.geo_tools.RasterMath(in_image,return_3d=False)
+RM.add_image(in_image)
+for block in RM.read_block_per_block():
+    print(block)
