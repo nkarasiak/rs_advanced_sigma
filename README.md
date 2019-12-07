@@ -188,7 +188,7 @@ Pour cela plusieurs filtres doivent être utilisés :
 ![Illustration du closing filter](_images/closing.png)
 
 
-Créer une fonction qui parcours l'image selon un nombre de voisins défini (1 = les premiers voisins (8 donc), 2 = les voisins jusqu'à 2 pixels de distance (24)...)
+Créer une fonction qui parcourt l'image selon un nombre de voisins défini (1 = les premiers voisins (8 donc), 2 = les voisins jusqu'à 2 pixels de distance (24)...)
 Puis en tenant compte des voisins, appliquez :
 - un filtre max
 - un filtre min
