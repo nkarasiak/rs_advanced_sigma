@@ -142,7 +142,7 @@ Pour cela quelques lignes pour définir nos besoins sont nécessaires :
 
 ```python
 driver = gdal.GetDriverByName("GTiff") # on choisi de créer un GeoTIFF
-out_data = driver.Create('/tmp/mon_ndvi.tif', data_src.RasterYSize, data_src.RasterXSize, 1, gdal.GDT_Float32) # 1 pour une bande
+out_data = driver.Create('/tmp/mon_ndvi.tif', data_src.RasterXSize, data_src.RasterYsize, 1, gdal.GDT_Float32) # 1 pour une bande
 out_data.SetGeoTransform(data_src.GetGeoTransform()) # même géotransformation que l'image d'origine
 out_data.SetProjection(data_src.GetProjection()) # même projection que l'image d'origine
 ```
