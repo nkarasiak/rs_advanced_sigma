@@ -164,7 +164,7 @@ Créer pour chacune consignes suivantes une fonction qui vous permet :
 
 Une fois terminée, vous pourrez à partir de 3 lignes :
 - ouvrir une image
-- calculer le ndvi
+- calculer le ndvi (en donnant un tableau par bande à la fonction, afin de ne presque pas modifier votre fonction précédente)
 - écrire le ndvi
 
 ---
@@ -178,6 +178,8 @@ Des traits plus ou moins fins et plus ou moins serrés représentent les pentes 
 Pour cela plusieurs filtres doivent être utilisés :
 - closing filter (filtre de fermeture)
 - médian (récupérer les contours)
+
+[La carte de l'État-major est à télécharger ici](https://github.com/lennepkade/HistoricalMap/archive/samples.zip).
 
 ## Exercice
 
