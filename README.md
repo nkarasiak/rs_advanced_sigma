@@ -45,7 +45,7 @@ Les codes doivent être bien documentés, en suivant la [docstring numpy](https:
 | 2     | Lun. 09/12/2019 | 8h/12h 	| Du tableau au raster. 				|
 | 3     | Lun. 16/12/2019 | 13h30/17h30 | Filtre spatial (tenant compte des voisins)		|
 | 4       | Ven. 18/12/2019 | 8h/12h      | Apprentissage automatique avec scikit-learn   	|
-| 5     | Mer. 08/01/2020 | 8h/10h	| Découverte de Museo ToolBox                           |
+| 5     | Mer. 08/01/2020 | 8h/12h	| Découverte de Museo ToolBox                           |
 | 6     | Ven. 08/01/2020 | 13h30/17h30 | PARTIEL                                               |
 
 ---
