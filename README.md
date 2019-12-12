@@ -198,14 +198,173 @@ Puis en tenant compte des voisins, appliquez :
 
 ---
 
-# Apprentissage automatique
+# Museo ToolBox
 
-Scikit-Learn
+L'idée derrière Museo ToolBox est de créer une bibliothèque python assez généraliste pour la télédétection. L'un des points les plus cruciaux et la lecture et l'écriture par bloc des images. Pour faciliter cette étape, la classe ``RasterMath`` a été développée afin que l'utilisateur n'ait pas à se soucier du traitement du raster (projection, nombre de bandes, lecture par bloc, compression de l'image, gestion des no-data et du type de données). L'utilisateur a juste besoin de créer une fonction qui traite un tableau numpy, et  ``RasterMath`` se charge de tout le reste.
 
-```python
-import sklearn
+## Installation de Museo ToolBox
+
+```bash
+python3 -m pip install museotoolbox --user
 ```
+
+## Premiers pas avec Museo ToolBox
+
+```python3
+import museotoolbox as mtb
+```
+Puis créez une instance de ``RasterMath`` avec l'image Sentinel-2, et donner un bloc de l'image choisi aléatoirement.
+
+```python3
+my_image = mtb.processing.RasterMath('sentinel2_3a_20180815.tif')
+X = my_image.get_random_block()
+print(X.shape)
+  (65536, 10)
+```
+``RasterMath`` permet d'interagir facilement avec votre image. Par défaut, cette classe vous renvoie un pixel par ligne (ici 65536), et en colonne chaque bande du raster (ici 10).
+
+## Création d'une fonction pour calculer le NDVI
+
+```python3
+def ndvi(X,r,ir):
+  return np.divide(X[...,ir]-X[...,r],X[...,ir]+X[...,r])
+```
+
+Ensuite tester votre fonction tout simplement avec le bloc que vous avez eu en échantillon.
+
+```python3
+ndvi(X,2,3)
+```
+Si tout se déroule comme prévu, vous pouvez désormais demander à RasterMath d'ajouter la fonction qui calcule le NDVI. Pour ajouter des arguments qu'utilise votre fonction, il suffit de les renseigner par leur nom (ici : `r=2,ir=3`).
+
+```python3
+my_image.add_function(ndvi,r=2,ir=3,out_image='/tmp/ndvi.tif')
+```
+Il est à noter que l'on peut donner autant de fonctions que l'on souhaite à ``RasterMath``.
+Une fois que vos fonctions sont validées, il ne vous reste plus qu'à demander l'exécution du calcul.
+
+```python3
+my_image.run()
+```
+
+Maintenant lire et écrire sur une raster ne prend plus que 3 lignes, il vous suffit juste d'avoir une fonction qui traite un tableau 2d ou 3d, et le tour est joué !
 
 ---
 
-# MuseoToolBox
+# Apprentissage automatique sans images
+
+Scikit-Learn est une bibliothèque python d'apprentissage automatique. Elle regroupe de nombreux pré-traitements et algorithmes.
+
+## Installer scikit-learn
+
+Pour installer et/ou mettre à jour scikit-learn (et joblib qui gère les calculs sur plusieurs cœurs), il vous suffit d'ajouter l'option ``-U``  à la fin du code :
+
+```python3
+python3 -m pip install scikit-learn joblib --user -U
+```
+
+## Premiers pas avec scikit-learn
+
+Pour apprendre un modèle il faut deux éléments :
+- X : un tableau qui contient pour chaque échantillon (un échantillon par ligne) les variables en colonnes
+- y : le label de chaque échantillon (un label par ligne).
+
+```python
+from sklearn.datasets import load_iris
+X,y = load_iris(return_X_y=True)
+```
+
+Une fois qu'on a notre jeu de données, il faut choisir un algorithme.
+
+Scikit-learn propose de très nombreux algorithmes. Je vous en ai selectionné 3 :
+
+- [Decision Tree](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html?highlight=decision%20tree#sklearn.tree.DecisionTreeClassifier)
+- [Random-Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+- [Support Vector Machine (SVC)](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)
+
+
+Prenons le cas de l'arbre de décision (Decision Tree) :
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit(X,y) # on apprend le modèle avec nos échantillons
+model.predict(X) # on prédit le modèle sur nos échantillons
+```
+## Valider un modèle
+
+### Garder des échantillons de côté
+
+Dans le cas précédent, nous avons entraîné un modèle avec l'ensemble de données à notre disposition, nous ne pouvons donc pas le valider.
+
+Pour valider le modèle, nous devons mettre de côté quelques échantillons afin de voir si l'algorithme peut retrouver le label sans jamais les avoir vu.
+
+```python3
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+```
+En utilisant la fonction ``train_test_split``, nous gardons 33% des données pour valider notre modèle et ainsi estimer sa qualité, et 66% des données pour l’entraîner.
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train) # on apprend le modèle avec nos échantillons
+y_pred = model.predict(X_test) # on prédit le modèle sur nos échantillons
+```
+Le plus ``y_pred`` sera semblable au ``y_test``, le plus performant sera le modèle.
+
+### Estimer la qualité du modèle
+
+Tout d'abord on peut calculer la matrice de confusion pour regarder la qualité générale du modèle et voir où le modèle s'est trompé et où il a bien réussi.
+
+```
+from sklearn.metrics import confusion_matrix,accuracy_score,f1_score
+
+confusion_matrix = confusion_matrix(y,y_pred)
+```
+
+Si vous avez oublié comment lire une matrice de confusion, [je vous conseille de lire la page wikipédia qui y est dédiée](https://fr.wikipedia.org/wiki/Matrice_de_confusion).
+
+Accord global (ou Overall accuracy), il s'agit du total de la diagonale sur le total d'échantillons prédits:
+```python3
+oa = np.sum(np.diag(confusion_matrix))/np.sum(confusion_matrix)
+```
+On peut aussi calculer l'OA avec scikit-learn
+
+```python3
+oa = accuracy_score(y,y_pred)
+```
+Le F1 est le nombre de commissions et d'omissions par classe :
+
+```python3
+f1 = f1_score(y,y_pred)
+```
+
+## Questions
+
+- Quelle est la qualité globale de votre modèle ? Calculer le f1 moyen et l'accord global
+- Quelle classe a été la mieux prédite ?
+- Quelle classe a été la moins bien prédite ?
+
+
+# Apprentissage automatique à partir d'images
+
+Pour extraire les données d'une image et le label d'un polygone, nous utilisons la fonction ``extract_ROI`` de ``Museo ToolBox``.
+``in_field`` correspond à la colonne qui contient pour chaque point/polygone le label de la classe.
+
+
+```
+X,y = mtb.processing.extract_ROI('sentinel2_3a_20180815.tif','ROI.gpkg','class')
+```
+Nous pouvons demander autant de colonnes de type numérique que l'on souhaite à `extract_ROI`. Par exemple pour obtenir le groupe, il suffit de rajouter un argument :
+
+```
+X,y,g = mtb.processing.extract_ROI('sentinel2_3a_20180815.tif','ROI.gpkg','class','group')
+```
+
+Ensuite, vous pouvez appliquer la même méthode que vue précédemment, ou alors partir sur une validation croisée pour fixer les paramètres de l'algorithme.
+
+# TO FINISH
+
+---
