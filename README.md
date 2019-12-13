@@ -1,8 +1,7 @@
-Cours de télédétection avancée pour Master Sigma.
----
+# Cours de télédétection avancée pour Master Sigma.
 
 <!--ts-->
-      * [Cours de télédétection avancée pour Master Sigma.](#cours-de-télédétection-avancée-pour-master-sigma)
+   * [Cours de télédétection avancée pour Master Sigma.](#cours-de-télédétection-avancée-pour-master-sigma)
    * [Introduction](#introduction)
       * [Objectif](#objectif)
       * [Les bibliothèques python utilisées](#les-bibliothèques-python-utilisées)
@@ -35,7 +34,7 @@ Cours de télédétection avancée pour Master Sigma.
    * [Apprentissage automatique à partir d'images](#apprentissage-automatique-à-partir-dimages)
    * [TO FINISH](#to-finish)
 
-<!-- Added by: nicolas, at: vendredi 13 décembre 2019, 11:23:03 (UTC+0100) -->
+<!-- Added by: nicolas, at: vendredi 13 décembre 2019, 11:25:25 (UTC+0100) -->
 
 <!--te-->
 
