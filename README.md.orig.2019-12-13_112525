@@ -1,7 +1,7 @@
 # Cours de télédétection avancée pour Master Sigma.
 
 <!--ts-->
-   * [Cours de télédétection avancée pour Master Sigma.](#cours-de-télédétection-avancée-pour-master-sigma)
+      * [Cours de télédétection avancée pour Master Sigma.](#cours-de-télédétection-avancée-pour-master-sigma)
    * [Introduction](#introduction)
       * [Objectif](#objectif)
       * [Les bibliothèques python utilisées](#les-bibliothèques-python-utilisées)
@@ -22,8 +22,7 @@
       * [Exercice](#exercice-4)
    * [Museo ToolBox](#museo-toolbox)
       * [Installation de Museo ToolBox](#installation-de-museo-toolbox)
-      * [Comment fonctionne RasterMath ?](#comment-fonctionne-rastermath-)
-      * [Premiers pas avec Museo ToolBox et RasterMath](#premiers-pas-avec-museo-toolbox-et-rastermath)
+      * [Premiers pas avec Museo ToolBox](#premiers-pas-avec-museo-toolbox)
       * [Création d'une fonction pour calculer le NDVI](#création-dune-fonction-pour-calculer-le-ndvi)
    * [Apprentissage automatique sans images](#apprentissage-automatique-sans-images)
       * [Installer scikit-learn](#installer-scikit-learn)
@@ -35,7 +34,7 @@
    * [Apprentissage automatique à partir d'images](#apprentissage-automatique-à-partir-dimages)
    * [TO FINISH](#to-finish)
 
-<!-- Added by: nicolas, at: lundi 16 décembre 2019, 12:37:59 (UTC+0100) -->
+<!-- Added by: nicolas, at: vendredi 13 décembre 2019, 11:23:03 (UTC+0100) -->
 
 <!--te-->
 
@@ -241,25 +240,13 @@ Puis en tenant compte des voisins, appliquez :
 
 L'idée derrière Museo ToolBox est de créer une bibliothèque python assez généraliste pour la télédétection. L'un des points les plus cruciaux et la lecture et l'écriture par bloc des images. Pour faciliter cette étape, la classe ``RasterMath`` a été développée afin que l'utilisateur n'ait pas à se soucier du traitement du raster (projection, nombre de bandes, lecture par bloc, compression de l'image, gestion des no-data et du type de données). L'utilisateur a juste besoin de créer une fonction qui traite un tableau numpy, et  ``RasterMath`` se charge de tout le reste.
 
-![Une image composée de 8 blocs](_images/blocks.png)
-
 ## Installation de Museo ToolBox
 
 ```bash
 python3 -m pip install museotoolbox --user
 ```
 
-
-
-## Comment fonctionne RasterMath ?
-
-![Fonctionnement détaillé de RasterMath](https://github.com/nkarasiak/atelier_SAGEO2019/blob/master/docs/figures/raster_math_3dto2d.png?raw=true)
-
-`RasterMath` est un outil du module `processing` du `Museo ToolBox`. Cette classe permet d'interagir facilement avec une ou plusieurs images et d'appliquer une fonction de votre choix. La lecture et l'écriture se fera bloc par bloc (cf graphique ci-dessus), et les paramètres de création du raster seront optimisés (compression par défaut, tuilage de l'image, choix du type de données selon le type du tableau numpy...)
-
-
-
-## Premiers pas avec Museo ToolBox et RasterMath
+## Premiers pas avec Museo ToolBox
 
 ```python3
 import museotoolbox as mtb

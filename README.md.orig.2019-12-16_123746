@@ -22,8 +22,7 @@
       * [Exercice](#exercice-4)
    * [Museo ToolBox](#museo-toolbox)
       * [Installation de Museo ToolBox](#installation-de-museo-toolbox)
-      * [Comment fonctionne RasterMath ?](#comment-fonctionne-rastermath-)
-      * [Premiers pas avec Museo ToolBox et RasterMath](#premiers-pas-avec-museo-toolbox-et-rastermath)
+      * [Premiers pas avec Museo ToolBox](#premiers-pas-avec-museo-toolbox)
       * [Création d'une fonction pour calculer le NDVI](#création-dune-fonction-pour-calculer-le-ndvi)
    * [Apprentissage automatique sans images](#apprentissage-automatique-sans-images)
       * [Installer scikit-learn](#installer-scikit-learn)
@@ -35,7 +34,7 @@
    * [Apprentissage automatique à partir d'images](#apprentissage-automatique-à-partir-dimages)
    * [TO FINISH](#to-finish)
 
-<!-- Added by: nicolas, at: lundi 16 décembre 2019, 12:37:59 (UTC+0100) -->
+<!-- Added by: nicolas, at: vendredi 13 décembre 2019, 11:25:25 (UTC+0100) -->
 
 <!--te-->
 
