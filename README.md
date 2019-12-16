@@ -1,4 +1,5 @@
 # Cours de télédétection avancée pour Master Sigma.
+<!-- to generate toc type "~/gh-md-toc --insert README.md" -->
 
 <!--ts-->
    * [Cours de télédétection avancée pour Master Sigma.](#cours-de-télédétection-avancée-pour-master-sigma)
