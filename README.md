@@ -148,7 +148,7 @@ Pour ceux qui ont terminé, vous pouvez chronométrer et essayer d'optimiser le 
 
 # D'une image au tableau
 
-![Synthèse mensuelle de Sentinel-2 niveau 3A (Pôle Théia) sur la forêt de Bouconne en août 2018](_images/s2_bouconne.jpg)
+![Synthèse mensuelle de Sentinel-2 niveau 3A (Pôle Théia) sur la forêt de Bouconne en août 2018](.images/s2_bouconne.jpg)
 
 ## Lecture et ouverture d'une image
 
@@ -213,7 +213,7 @@ Une fois terminée, vous pourrez à partir de 3 lignes :
 
 Comment identifier les forêts des cartes de l'État-Major ?
 Des traits plus ou moins fins et plus ou moins serrés représentent les pentes dans les cartes. Nous avons donc besoin de supprimer ces rayures afind d'avoir une couleur verte homogène pour identifier la forêt.
-![Fabas État-Major](_images/fabas.png)
+![Fabas État-Major](.images/fabas.png)
 
 Pour cela plusieurs filtres doivent être utilisés :
 - closing filter (filtre de fermeture)
@@ -227,7 +227,7 @@ Pour cela plusieurs filtres doivent être utilisés :
 - Quelle est la valeur des pixels noirs ?
 - Que fait et à quoi sert le closing filter ?
 
-![Illustration du closing filter](_images/closing.png)
+![Illustration du closing filter](.images/closing.png)
 
 
 Créer une fonction qui parcourt l'image selon un nombre de voisins défini (1 = les premiers voisins (8 donc), 2 = les voisins jusqu'à 2 pixels de distance (24)...)
@@ -242,7 +242,7 @@ Puis en tenant compte des voisins, appliquez :
 
 L'idée derrière Museo ToolBox est de créer une bibliothèque python assez généraliste pour la télédétection. L'un des points les plus cruciaux et la lecture et l'écriture par bloc des images. Pour faciliter cette étape, la classe ``RasterMath`` a été développée afin que l'utilisateur n'ait pas à se soucier du traitement du raster (projection, nombre de bandes, lecture par bloc, compression de l'image, gestion des no-data et du type de données). L'utilisateur a juste besoin de créer une fonction qui traite un tableau numpy, et  ``RasterMath`` se charge de tout le reste.
 
-![Une image composée de 8 blocs](_images/blocks.png)
+![Une image composée de 8 blocs](.images/blocks.png)
 
 ## Installation de Museo ToolBox
 
