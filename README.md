@@ -246,10 +246,20 @@ L'idée derrière Museo ToolBox est de créer une bibliothèque python assez gé
 
 ## Installation de Museo ToolBox
 
+Pour installer Museo ToolBox, ouvrez le terminal linux (`ctrl + alt + T`) et coller la ligne suivante :
+
 ```bash
-python3 -m pip install museotoolbox --user
+python3 -m pip install museotoolbox --user -U
 ```
 
+Le ``--user`` indique que vous l'installez que pour votre compte utilisateur (vous n'avez pas besoin d'avoir les droits administrateurs), le ``-U`` indique que si museotoolbox est déjà installé, alors on fera la mise à jour.
+
+
+Si vous souhaitez avoir la toute dernière version en développement, coller alors la ligne suivante :
+
+```bash
+python3 -m pip install https://github.com/nkarasiak/museotoolbox/archive/develop.zip --user -U
+```
 
 
 ## Comment fonctionne RasterMath ?
@@ -415,8 +425,14 @@ Nous pouvons demander autant de colonnes de type numérique que l'on souhaite à
 X,y,g = mtb.processing.extract_ROI('sentinel2_3a_20180815.tif','ROI.gpkg','class','group')
 ```
 
-Ensuite, vous pouvez appliquer la même méthode que vue précédemment, ou alors partir sur une validation croisée pour fixer les paramètres de l'algorithme.
+Ensuite, vous pouvez appliquer la même méthode d'apprentissage automatique que vous avez vu précédemment, ou alors partir sur une validation croisée pour fixer les paramètres de l'algorithme.
 
-# TO FINISH
+## Exercice
+
+- Apprenez un modèle avec les données (X, y et g) extraite de l'image Sentinel-2
+- Utiliser une [grille de recherche](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html?highlight=gridsearch#sklearn.model_selection.GridSearchCV) pour apprendre à partir d'une validation croisée (de type [Leave-One-SubGroup-Out](https://museotoolbox.readthedocs.io/en/latest/auto_examples/cross_validation/LeaveOneSubGroupOut.html))
+- Fixer les hyper-paramètres de votre algorithme. Pour RandomForestClassifier, vous pouvez faire varier le [n_estimators (nombre d'arbres), ou le min_sample_split par exemple](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html).
+- Quelles sont les paramètres qui permettent d'avoir le meilleur résultat ? (nombre d'arbres et min_sample_split)
+- Prédire maintenant le modèle sur l'image Sentinel-2 en utilisant RasterMath.
 
 ---
